@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Скачать патч</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b0e14;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('files/screenshot.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.15;
+            z-index: 0;
+            filter: blur(2px) brightness(0.6);
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(11, 14, 20, 0.7) 0%, rgba(11, 14, 20, 0.95) 100%);
+            z-index: 1;
+        }
+
+        .card {
+            max-width: 720px;
+            width: 100%;
+            background: rgba(24, 30, 38, 0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 2.5rem;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 215, 100, 0.15);
+            border: 1px solid rgba(47, 58, 71, 0.6);
+            position: relative;
+            z-index: 2;
+        }
+
+        .game-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 1.2rem;
+            padding: 0.6rem 0.8rem;
+            margin-bottom: 1.8rem;
+            border: 1px solid rgba(247, 212, 74, 0.2);
+        }
+
+        .game-header .preview {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid #f7d44a;
+            background: #000;
+        }
+
+        .game-header .preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .game-header .info {
+            flex: 1;
+        }
+
+        .game-header .info .title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: #f7d44a;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 0 #7a5c1a;
+        }
+
+        .game-header .info .sub {
+            color: #b6c8d9;
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.6rem;
+            color: #f7d44a;
+            text-shadow: 0 4px 0 #7a5c1a;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 0.3rem;
+            word-break: break-word;
+        }
+
+        .subhead {
+            text-align: center;
+            color: #b6c8d9;
+            font-size: 0.9rem;
+            border-bottom: 1px dashed #3d4b5a;
+            padding-bottom: 1.2rem;
+            margin-bottom: 1.8rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .subhead span {
+            background: #232d38;
+            padding: 0.25rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 500;
+            color: #d4e2f0;
+            border: 1px solid #3e4f5e;
+        }
+
+        .subhead strong {
+            color: #f7d44a;
+        }
+
+        /* ИНФОРМАЦИЯ О СБОРКЕ — ОБЫЧНЫЙ ЖИРНЫЙ ШРИФТ */
+        .build-info {
+            background: rgba(16, 23, 31, 0.9);
+            padding: 1.8rem 1.5rem;
+            border-radius: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 6px solid #f7d44a;
+            text-align: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .build-info .label {
+            font-size: 0.75rem;
+            color: #8aa5be;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .build-info .main {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .build-info .main .highlight {
+            color: #f7d44a;
+        }
+
+        .build-info .main .date {
+            color: #85d685;
+            font-size: 1.4rem;
+        }
+
+        .build-info .link {
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        .build-info .link a {
+            color: #8aa5be;
+            text-decoration: none;
+            border-bottom: 1px dotted rgba(138, 165, 190, 0.3);
+            transition: 0.2s;
+        }
+
+        .build-info .link a:hover {
+            color: #f7d44a;
+            border-bottom-color: #f7d44a;
+        }
+
+        .build-info .link code {
+            background: #0b0e14;
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #f7d44a;
+            font-size: 0.7rem;
+        }
+
+        .download-section {
+            background: rgba(16, 23, 31, 0.9);
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            margin-bottom: 1.8rem;
+            text-align: center;
+            border: 2px solid rgba(247, 212, 74, 0.3);
+            backdrop-filter: blur(4px);
+        }
+
+        .download-section .label {
+            color: #b6c8d9;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .download-section .label strong {
+            color: #f7d44a;
+        }
+
+        .download-btn {
+            background: #f7d44a;
+            color: #141c24;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 6px 0 #7a5c1a;
+            transform: translateY(-2px);
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .download-btn:hover {
+            background: #ffe173;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 0 #7a5c1a;
+        }
+
+        .download-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #7a5c1a;
+        }
+
+        .download-btn .ext {
+            background: #141c24;
+            color: #f7d44a;
+            padding: 0.1rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+
+        .footer-note {
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: #5d7385;
+            text-align: center;
+            border-top: 1px solid #25323e;
+            padding-top: 1.2rem;
+        }
+
+        @media (max-width: 500px) {
+            .card { padding: 1.8rem 1rem; }
+            h1 { font-size: 1.2rem; }
+            .game-header .preview { width: 45px; height: 45px; }
+            .game-header .info .title { font-size: 0.55rem; }
+            .download-btn { font-size: 1rem; padding: 0.8rem 1.8rem; }
+            .build-info .main { font-size: 1.2rem; }
+            .build-info .main .date { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="game-header">
+        <div class="preview">
+            <img src="files/screenshot.jpg" alt="Скриншот Ромхака" />
+        </div>
+        <div class="info">
+            <div class="title">🎮 SONIC 1 DEFINITIVE</div>
+            <div class="sub">ROM Hack • Sega Genesis</div>
+        </div>
+    </div>
+
+    <h1>⬇️ СКАЧАТЬ ПАТЧ</h1>
+    <div class="subhead">
+        <span>🔥 <strong>Sonic 1 Definitive</strong> v1.0</span>
+        <span>📦 BPS</span>
+    </div>
+
+    <!-- ИНФОРМАЦИЯ О СБОРКЕ — ОБЫЧНЫЙ ЖИРНЫЙ ШРИФТ -->
+    <div class="build-info">
+        <div class="label">🔧 Сборка на основе</div>
+        <div class="main">
+            <span class="highlight">s1disasm</span><br />
+            <span class="date">26.05</span>
+        </div>
+        <div class="link">
+            <a href="https://github.com/sonicretro/s1disasm/releases/tag/v26.05" target="_blank">
+                <code>v26.05</code> на GitHub
+            </a>
+        </div>
+    </div>
+
+    <!-- КНОПКА СКАЧИВАНИЯ -->
+    <div class="download-section">
+        <div class="label">📦 <strong>Скачать патч</strong></div>
+        <a href="files/s1patch.bps" class="download-btn" download>
+            ⬇️ s1patch.bps
+            <span class="ext">BPS</span>
+        </a>
+    </div>
+
+    <div class="footer-note">
+        ⚠️ Патч скачивается как есть. Убедись, что ROM соответствует указанному выше.
+    </div>
+</div>
+
+</body>
+</html>
