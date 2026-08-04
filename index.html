@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Скачать патч</title>
+    <title>Sonic 1 Definitive — Скачать патч</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="Sonic 1 Definitive — ромхак для Sega Genesis" />
@@ -71,6 +71,46 @@
             border: 1px solid rgba(47, 58, 71, 0.6);
             position: relative;
             z-index: 2;
+        }
+
+        /* Language Switcher Styles */
+        .lang-switch {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .lang-switch button {
+            background: rgba(16, 23, 31, 0.6);
+            border: 1px solid rgba(62, 79, 94, 0.4);
+            color: #8aa5be;
+            padding: 0.3rem 0.8rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-switch button:hover {
+            border-color: #f7d44a;
+            color: #f7d44a;
+        }
+
+        .lang-switch button.active {
+            background: #f7d44a;
+            color: #141c24;
+            border-color: #f7d44a;
+            box-shadow: 0 0 10px rgba(247, 212, 74, 0.3);
+        }
+
+        /* Language display visibility */
+        html[lang="en"] .lang-ru {
+            display: none !important;
+        }
+        html[lang="ru"] .lang-en {
+            display: none !important;
         }
 
         .game-header {
@@ -292,6 +332,92 @@
             font-weight: 800;
         }
 
+        /* КАРТОЧКА TELEGRAM */
+        .telegram-card {
+            background: rgba(16, 23, 31, 0.9);
+            padding: 1.8rem 1.5rem;
+            border-radius: 1.5rem;
+            margin-bottom: 1.8rem;
+            text-align: center;
+            border: 2px solid rgba(36, 161, 222, 0.3);
+            box-shadow: 0 8px 24px rgba(36, 161, 222, 0.1);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .telegram-card:hover {
+            border-color: rgba(36, 161, 222, 0.7);
+            box-shadow: 0 12px 32px rgba(36, 161, 222, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .telegram-card .tg-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .telegram-card .tg-icon {
+            width: 32px;
+            height: 32px;
+            fill: #24A1DE;
+            transition: transform 0.3s ease;
+        }
+
+        .telegram-card:hover .tg-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .telegram-card .tg-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.75rem;
+            color: #24A1DE;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 0 #125170;
+        }
+
+        .telegram-card p {
+            color: #b6c8d9;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .telegram-btn {
+            background: #24A1DE;
+            color: #ffffff;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 0 #125170;
+            transform: translateY(-2px);
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .telegram-btn:hover {
+            background: #39b3eb;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 0 #125170;
+        }
+
+        .telegram-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #125170;
+        }
+
         .footer-note {
             margin-top: 1.5rem;
             font-size: 0.75rem;
@@ -309,56 +435,138 @@
             .download-btn { font-size: 1rem; padding: 0.8rem 1.8rem; }
             .build-info .main { font-size: 1.2rem; }
             .build-info .main .date { font-size: 1.1rem; }
+            .telegram-btn { font-size: 0.95rem; padding: 0.8rem 1.8rem; }
+            .telegram-card .tg-title { font-size: 0.65rem; }
         }
     </style>
 </head>
 <body>
 
 <div class="card">
+    <!-- КНОПКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА -->
+    <div class="lang-switch">
+        <button id="lang-ru-btn" class="active" onclick="setLanguage('ru')">RU</button>
+        <button id="lang-en-btn" onclick="setLanguage('en')">EN</button>
+    </div>
+
     <div class="game-header">
         <div class="preview">
             <img src="files/screenshot.jpg" alt="Скриншот Ромхака" />
         </div>
         <div class="info">
             <div class="title">🎮 SONIC 1 DEFINITIVE</div>
-            <div class="sub">ROM Hack • Sega Genesis</div>
+            <div class="sub lang-ru">ROM-хак • Sega Genesis</div>
+            <div class="sub lang-en">ROM Hack • Sega Genesis</div>
         </div>
     </div>
 
-    <h1>⬇️ СКАЧАТЬ ПАТЧ</h1>
+    <h1 class="lang-ru">⬇️ СКАЧАТЬ ПАТЧ</h1>
+    <h1 class="lang-en">⬇️ DOWNLOAD PATCH</h1>
+    
     <div class="subhead">
         <span>🔥 <strong>Sonic 1 Definitive</strong> v1.0</span>
         <span>📦 BPS</span>
     </div>
 
-    <!-- ИНФОРМАЦИЯ О СБОРКЕ — ОБЫЧНЫЙ ЖИРНЫЙ ШРИФТ -->
+    <!-- ИНФОРМАЦИЯ О СБОРКЕ -->
     <div class="build-info">
-        <div class="label">🔧 Сборка на основе</div>
+        <div class="label lang-ru">🔧 Сборка на основе</div>
+        <div class="label lang-en">🔧 Built on</div>
+        
         <div class="main">
             <span class="highlight">s1disasm</span><br />
-            <span class="date">версия 26.05</span>
+            <span class="date lang-ru">версия 26.05</span>
+            <span class="date lang-en">version 26.05</span>
         </div>
         <div class="link">
             <a href="https://github.com/sonicretro/s1disasm/releases/tag/v26.05" target="_blank">
-                <code>v26.05</code> на GitHub
+                <span class="lang-ru"><code>v26.05</code> на GitHub</span>
+                <span class="lang-en"><code>v26.05</code> on GitHub</span>
             </a>
         </div>
     </div>
 
     <!-- КНОПКА СКАЧИВАНИЯ -->
     <div class="download-section">
-        <div class="label">📦 <strong>Скачать патч</strong></div>
+        <div class="label lang-ru">📦 <strong>Скачать патч</strong></div>
+        <div class="label lang-en">📦 <strong>Download patch</strong></div>
+        
         <a href="files/s1patch.bps" class="download-btn" download>
             ⬇️ s1patch.bps
             <span class="ext">BPS</span>
         </a>
-        <div class="rom-revision">💿 Патч применять к ROM-образу <strong>Sonic the Hedgehog</strong> (Sega Genesis), <strong>ревизия&nbsp;01</strong></div>
+        
+        <div class="rom-revision lang-ru">💿 Патч применять к ROM-образу <strong>Sonic the Hedgehog</strong> (Sega Genesis), <strong>ревизия&nbsp;01</strong></div>
+        <div class="rom-revision lang-en">💿 Apply patch to <strong>Sonic the Hedgehog</strong> (Sega Genesis) ROM image, <strong>revision&nbsp;01</strong></div>
     </div>
 
-    <div class="footer-note">
+    <!-- КАРТОЧКА TELEGRAM -->
+    <div class="telegram-card">
+        <div class="tg-header">
+            <svg class="tg-icon" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.53-1.39.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.24.38-.49 1.04-.74 4.07-1.77 6.79-2.93 8.15-3.5 3.89-1.61 4.7-1.89 5.23-1.9.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.14-.03.22z"/>
+            </svg>
+            <div class="tg-title lang-ru">TELEGRAM КАНАЛ</div>
+            <div class="tg-title lang-en">TELEGRAM CHANNEL</div>
+        </div>
+        
+        <p class="lang-ru">Присоединяйтесь к нашему Telegram-каналу, чтобы следить за процессом разработки, получать свежие новости о патчах и общаться с другими игроками!</p>
+        <p class="lang-en">Join our Telegram channel to follow the development process, get the latest news about patches, and chat with other players!</p>
+        
+        <a href="https://t.me/gdpro835" target="_blank" class="telegram-btn">
+            <svg style="width:20px;height:20px;fill:currentColor;" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.53-1.39.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.24.38-.49 1.04-.74 4.07-1.77 6.79-2.93 8.15-3.5 3.89-1.61 4.7-1.89 5.23-1.9.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.14-.03.22z"/>
+            </svg>
+            <span class="lang-ru">Присоединиться</span>
+            <span class="lang-en">Join Channel</span>
+        </a>
+    </div>
+
+    <!-- ПОДВАЛ/ЗАМЕТКА -->
+    <div class="footer-note lang-ru">
         ⚠️ Патч скачивается как есть. Убедись, что ROM соответствует указанной ревизии.
     </div>
+    <div class="footer-note lang-en">
+        ⚠️ Patch is downloaded as is. Make sure your ROM matches the specified revision.
+    </div>
 </div>
+
+<script>
+    function setLanguage(lang) {
+        document.documentElement.setAttribute('lang', lang);
+        
+        // Update active button state
+        const btnRu = document.getElementById('lang-ru-btn');
+        const btnEn = document.getElementById('lang-en-btn');
+        if (lang === 'ru') {
+            btnRu.classList.add('active');
+            btnEn.classList.remove('active');
+            document.title = 'Sonic 1 Definitive — Скачать патч';
+        } else {
+            btnRu.classList.remove('active');
+            btnEn.classList.add('active');
+            document.title = 'Sonic 1 Definitive — Download Patch';
+        }
+        
+        // Save to local storage
+        localStorage.setItem('preferred-language', lang);
+    }
+
+    // Load preference on startup
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferred-language');
+        const userLang = navigator.language || navigator.userLanguage;
+        
+        let defaultLang = 'ru'; // Default to Russian
+        if (savedLang) {
+            defaultLang = savedLang;
+        } else if (userLang && userLang.startsWith('en')) {
+            defaultLang = 'en';
+        }
+        
+        setLanguage(defaultLang);
+    });
+</script>
 
 </body>
 </html>
