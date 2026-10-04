@@ -1,572 +1,262 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!doctype html>
+<html lang="ru" data-theme="dark">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sonic 1 Definitive — Скачать патч</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Sonic 1 Definitive — ромхак для Sega Genesis" />
-    <meta property="og:description" content="Ромхак на основе s1disasm v26.05. Скачай BPS-патч и играй!" />
-    <meta property="og:image" content="https://raw.githubusercontent.com/Gdpro835/Gdpro835.github.io/main/files/screenshot.jpg" />
-    <meta property="og:url" content="https://gdpro835.github.io/" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Sonic 1 Definitive — скачать патч" />
-    <meta name="twitter:description" content="Ромхак на основе s1disasm v26.05" />
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/Gdpro835/Gdpro835.github.io/main/files/screenshot.jpg" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #0b0e14;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            padding: 1.5rem;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('https://raw.githubusercontent.com/Gdpro835/Gdpro835.github.io/main/files/screenshot.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.15;
-            z-index: 0;
-            filter: blur(2px) brightness(0.6);
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at center, rgba(11, 14, 20, 0.7) 0%, rgba(11, 14, 20, 0.95) 100%);
-            z-index: 1;
-        }
-
-        .card {
-            max-width: 720px;
-            width: 100%;
-            background: rgba(24, 30, 38, 0.92);
-            backdrop-filter: blur(12px);
-            border-radius: 2.5rem;
-            padding: 2.5rem 2rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 215, 100, 0.15);
-            border: 1px solid rgba(47, 58, 71, 0.6);
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Language Switcher Styles */
-        .lang-switch {
-            display: flex;
-            justify-content: flex-end;
-            gap: 0.4rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .lang-switch button {
-            background: rgba(16, 23, 31, 0.6);
-            border: 1px solid rgba(62, 79, 94, 0.4);
-            color: #8aa5be;
-            padding: 0.3rem 0.8rem;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.55rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .lang-switch button:hover {
-            border-color: #f7d44a;
-            color: #f7d44a;
-        }
-
-        .lang-switch button.active {
-            background: #f7d44a;
-            color: #141c24;
-            border-color: #f7d44a;
-            box-shadow: 0 0 10px rgba(247, 212, 74, 0.3);
-        }
-
-        /* Language display visibility */
-        html[lang="en"] .lang-ru {
-            display: none !important;
-        }
-        html[lang="ru"] .lang-en {
-            display: none !important;
-        }
-
-        .game-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 1.2rem;
-            padding: 0.6rem 0.8rem;
-            margin-bottom: 1.8rem;
-            border: 1px solid rgba(247, 212, 74, 0.2);
-        }
-
-        .game-header .preview {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            overflow: hidden;
-            flex-shrink: 0;
-            border: 2px solid #f7d44a;
-            background: #000;
-        }
-
-        .game-header .preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .game-header .info {
-            flex: 1;
-        }
-
-        .game-header .info .title {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            color: #f7d44a;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 0 #7a5c1a;
-        }
-
-        .game-header .info .sub {
-            color: #b6c8d9;
-            font-size: 0.75rem;
-            opacity: 0.8;
-            margin-top: 2px;
-        }
-
-        h1 {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.6rem;
-            color: #f7d44a;
-            text-shadow: 0 4px 0 #7a5c1a;
-            letter-spacing: 1px;
-            text-align: center;
-            margin-bottom: 0.3rem;
-            word-break: break-word;
-        }
-
-        .subhead {
-            text-align: center;
-            color: #b6c8d9;
-            font-size: 0.9rem;
-            border-bottom: 1px dashed #3d4b5a;
-            padding-bottom: 1.2rem;
-            margin-bottom: 1.8rem;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0.8rem 1.5rem;
-        }
-
-        .subhead span {
-            background: #232d38;
-            padding: 0.25rem 1.2rem;
-            border-radius: 30px;
-            font-weight: 500;
-            color: #d4e2f0;
-            border: 1px solid #3e4f5e;
-        }
-
-        .subhead strong {
-            color: #f7d44a;
-        }
-
-        /* ИНФОРМАЦИЯ О СБОРКЕ — ОБЫЧНЫЙ ЖИРНЫЙ ШРИФТ */
-        .build-info {
-            background: rgba(16, 23, 31, 0.9);
-            padding: 1.8rem 1.5rem;
-            border-radius: 1.5rem;
-            margin-bottom: 2rem;
-            border-left: 6px solid #f7d44a;
-            text-align: center;
-            backdrop-filter: blur(4px);
-        }
-
-        .build-info .label {
-            font-size: 0.75rem;
-            color: #8aa5be;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
-        }
-
-        .build-info .main {
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: #ffffff;
-            line-height: 1.6;
-        }
-
-        .build-info .main .highlight {
-            color: #f7d44a;
-        }
-
-        .build-info .main .date {
-            color: #85d685;
-            font-size: 1.4rem;
-        }
-
-        .build-info .link {
-            margin-top: 0.8rem;
-            font-size: 0.85rem;
-        }
-
-        .build-info .link a {
-            color: #8aa5be;
-            text-decoration: none;
-            border-bottom: 1px dotted rgba(138, 165, 190, 0.3);
-            transition: 0.2s;
-        }
-
-        .build-info .link a:hover {
-            color: #f7d44a;
-            border-bottom-color: #f7d44a;
-        }
-
-        .build-info .link code {
-            background: #0b0e14;
-            padding: 0.1rem 0.5rem;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            color: #f7d44a;
-            font-size: 0.7rem;
-        }
-
-        .download-section {
-            background: rgba(16, 23, 31, 0.9);
-            padding: 1.5rem;
-            border-radius: 1.5rem;
-            margin-bottom: 1.8rem;
-            text-align: center;
-            border: 2px solid rgba(247, 212, 74, 0.3);
-            backdrop-filter: blur(4px);
-        }
-
-        .download-section .label {
-            color: #b6c8d9;
-            font-size: 0.9rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .download-section .label strong {
-            color: #f7d44a;
-        }
-
-        .rom-revision {
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: #d4e2f0;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            display: inline-block;
-            border: 1px solid rgba(247, 212, 74, 0.25);
-        }
-
-        .rom-revision strong {
-            color: #f7d44a;
-        }
-
-        .download-btn {
-            background: #f7d44a;
-            color: #141c24;
-            border: none;
-            padding: 1rem 3rem;
-            border-radius: 60px;
-            font-weight: 800;
-            font-size: 1.2rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 6px 0 #7a5c1a;
-            transform: translateY(-2px);
-            text-decoration: none;
-            font-family: inherit;
-        }
-
-        .download-btn:hover {
-            background: #ffe173;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 0 #7a5c1a;
-        }
-
-        .download-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #7a5c1a;
-        }
-
-        .download-btn .ext {
-            background: #141c24;
-            color: #f7d44a;
-            padding: 0.1rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 800;
-        }
-
-        /* КАРТОЧКА TELEGRAM */
-        .telegram-card {
-            background: rgba(16, 23, 31, 0.9);
-            padding: 1.8rem 1.5rem;
-            border-radius: 1.5rem;
-            margin-bottom: 1.8rem;
-            text-align: center;
-            border: 2px solid rgba(36, 161, 222, 0.3);
-            box-shadow: 0 8px 24px rgba(36, 161, 222, 0.1);
-            backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
-        }
-
-        .telegram-card:hover {
-            border-color: rgba(36, 161, 222, 0.7);
-            box-shadow: 0 12px 32px rgba(36, 161, 222, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .telegram-card .tg-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .telegram-card .tg-icon {
-            width: 32px;
-            height: 32px;
-            fill: #24A1DE;
-            transition: transform 0.3s ease;
-        }
-
-        .telegram-card:hover .tg-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .telegram-card .tg-title {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.75rem;
-            color: #24A1DE;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 0 #125170;
-        }
-
-        .telegram-card p {
-            color: #b6c8d9;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            max-width: 520px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .telegram-btn {
-            background: #24A1DE;
-            color: #ffffff;
-            border: none;
-            padding: 1rem 2.5rem;
-            border-radius: 60px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 6px 0 #125170;
-            transform: translateY(-2px);
-            text-decoration: none;
-            font-family: inherit;
-        }
-
-        .telegram-btn:hover {
-            background: #39b3eb;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 0 #125170;
-        }
-
-        .telegram-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #125170;
-        }
-
-        .footer-note {
-            margin-top: 1.5rem;
-            font-size: 0.75rem;
-            color: #5d7385;
-            text-align: center;
-            border-top: 1px solid #25323e;
-            padding-top: 1.2rem;
-        }
-
-        @media (max-width: 500px) {
-            .card { padding: 1.8rem 1rem; }
-            h1 { font-size: 1.2rem; }
-            .game-header .preview { width: 45px; height: 45px; }
-            .game-header .info .title { font-size: 0.55rem; }
-            .download-btn { font-size: 1rem; padding: 0.8rem 1.8rem; }
-            .build-info .main { font-size: 1.2rem; }
-            .build-info .main .date { font-size: 1.1rem; }
-            .telegram-btn { font-size: 0.95rem; padding: 0.8rem 1.8rem; }
-            .telegram-card .tg-title { font-size: 0.65rem; }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111d">
+  <meta name="description" content="Sonic 1 Definitive — фанатский ROM-хак для Sega Genesis. Скачайте BPS-патч или соберите ROM прямо в браузере.">
+  <meta property="og:title" content="Sonic 1 Definitive — BPS-патч">
+  <meta property="og:description" content="Фанатский ROM-хак для Sega Genesis. Скачайте патч, проверьте ROM и примените BPS прямо в браузере.">
+  <meta property="og:image" content="https://gdpro835.github.io/files/screenshot.jpg">
+  <meta property="og:url" content="https://gdpro835.github.io/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sonic 1 Definitive — BPS-патч">
+  <meta name="twitter:description" content="Скачать BPS-патч или собрать ROM локально в браузере.">
+  <meta name="twitter:image" content="https://gdpro835.github.io/files/screenshot.jpg">
+  <link rel="canonical" href="https://gdpro835.github.io/">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <title>Sonic 1 Definitive — BPS-патч для Sega Genesis</title>
+  <script type="module" src="app.mjs"></script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">
+    <span class="lang-ru">Перейти к содержимому</span>
+    <span class="lang-en">Skip to content</span>
+  </a>
 
-<div class="card">
-    <!-- КНОПКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА -->
-    <div class="lang-switch">
-        <button id="lang-ru-btn" class="active" onclick="setLanguage('ru')">RU</button>
-        <button id="lang-en-btn" onclick="setLanguage('en')">EN</button>
-    </div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Sonic 1 Definitive">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="5" />
+            <path d="M30 17 20 28l-4-4-6 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+            <path d="M30 17h-8m8 0v8" stroke="currentColor" stroke-linecap="round" stroke-width="3" />
+          </svg>
+        </span>
+        <span class="brand-text"><strong>SONIC 1</strong><span>DEFINITIVE</span></span>
+      </a>
 
-    <div class="game-header">
-        <div class="preview">
-            <img src="files/screenshot.jpg" alt="Скриншот Ромхака" />
+      <nav class="site-nav" id="primary-navigation" aria-label="Навигация">
+        <a href="#about"><span class="lang-ru">О проекте</span><span class="lang-en">About</span></a>
+        <a href="#download"><span class="lang-ru">Патч</span><span class="lang-en">Patch</span></a>
+        <a href="#patcher"><span class="lang-ru">Собрать ROM</span><span class="lang-en">Apply patch</span></a>
+        <a href="#faq"><span class="lang-ru">Вопросы</span><span class="lang-en">FAQ</span></a>
+      </nav>
+
+      <div class="header-tools">
+        <div class="language-switch" role="group" aria-label="Язык / Language">
+          <button type="button" class="language-button is-active" data-language="ru" aria-pressed="true">RU</button>
+          <button type="button" class="language-button" data-language="en" aria-pressed="false">EN</button>
         </div>
-        <div class="info">
-            <div class="title">🎮 SONIC 1 DEFINITIVE</div>
-            <div class="sub lang-ru">ROM-хак • Sega Genesis</div>
-            <div class="sub lang-en">ROM Hack • Sega Genesis</div>
-        </div>
+        <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Включить светлую тему" title="Включить светлую тему">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8" />
+            <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" />
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.6 8.6 0 1 0 20.2 15.1Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" />
+          </svg>
+        </button>
+        <button class="icon-button menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Открыть меню">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" />
+          </svg>
+        </button>
+      </div>
     </div>
+  </header>
 
-    <h1 class="lang-ru">⬇️ СКАЧАТЬ ПАТЧ</h1>
-    <h1 class="lang-en">⬇️ DOWNLOAD PATCH</h1>
-    
-    <div class="subhead">
-        <span>🔥 <strong>Sonic 1 Definitive</strong> v2.0</span>
-        <span>📦 BPS</span>
-    </div>
-
-    <!-- ИНФОРМАЦИЯ О СБОРКЕ -->
-    <div class="build-info">
-        <div class="label lang-ru">🔧 Сборка на основе</div>
-        <div class="label lang-en">🔧 Built on</div>
-        
-        <div class="main">
-            <span class="highlight">s1disasm</span><br />
-            <span class="date lang-ru">версия 26.05</span>
-            <span class="date lang-en">version 26.05</span>
+  <main id="main-content">
+    <section class="hero container" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span><span class="lang-ru">ФАНАТСКИЙ ROM-ХАК · SEGA GENESIS</span><span class="lang-en">FAN-MADE ROM HACK · SEGA GENESIS</span></p>
+        <h1 class="hero-title" id="hero-title"><span class="hero-title-main">SONIC 1</span><span class="hero-title-accent">DEFINITIVE<span class="title-period">.</span></span></h1>
+        <p class="hero-lead lang-ru">Классическая скорость. Знакомый мир. Новый способ начать игру.</p>
+        <p class="hero-lead lang-en">Classic speed. A familiar world. A new way to get started.</p>
+        <p class="hero-description lang-ru">Фанатский ROM-хак для Sega Genesis / Mega Drive на основе <strong>s1disasm v26.05</strong>. Скачайте BPS-патч или примените его здесь — исходный ROM останется на вашем устройстве.</p>
+        <p class="hero-description lang-en">A fan-made ROM hack for Sega Genesis / Mega Drive, built on <strong>s1disasm v26.05</strong>. Download the BPS patch or apply it here — your source ROM stays on your device.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#download">
+            <span class="lang-ru">Скачать патч</span><span class="lang-en">Download patch</span>
+            <span class="button-format">BPS</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" /></svg>
+          </a>
+          <a class="button button-secondary" href="#patcher"><span class="lang-ru">Как установить</span><span class="lang-en">How to apply</span><span aria-hidden="true">↘</span></a>
+          <button class="share-button" id="share-button" type="button">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="1.7"/><circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/><circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="1.7"/><path d="m8.7 10.6 6.6-4.2m-6.6 9 6.6 4.2" stroke="currentColor" stroke-width="1.7"/></svg>
+            <span class="lang-ru">Поделиться</span><span class="lang-en">Share</span>
+          </button>
         </div>
-        <div class="link">
-            <a href="https://github.com/sonicretro/s1disasm/releases/tag/v26.05" target="_blank">
-                <span class="lang-ru"><code>v26.05</code> на GitHub</span>
-                <span class="lang-en"><code>v26.05</code> on GitHub</span>
+        <p class="hero-footnote"><span class="tiny-check" aria-hidden="true">✓</span><span class="lang-ru">Только патч — оригинальный ROM не прилагается.</span><span class="lang-en">Patch only — the original ROM is not included.</span></p>
+        <div class="hero-facts" role="group" aria-label="Краткая информация">
+          <div class="hero-fact"><span class="fact-label"><span class="lang-ru">ВЕРСИЯ</span><span class="lang-en">VERSION</span></span><strong>2.0</strong></div>
+          <div class="hero-fact"><span class="fact-label"><span class="lang-ru">ФОРМАТ</span><span class="lang-en">FORMAT</span></span><strong>BPS</strong></div>
+          <div class="hero-fact"><span class="fact-label"><span class="lang-ru">ПЛАТФОРМА</span><span class="lang-en">PLATFORM</span></span><strong>GENESIS</strong></div>
+        </div>
+      </div>
+
+      <figure class="hero-visual">
+        <div class="visual-frame">
+          <img src="files/screenshot.jpg" width="1650" height="720" alt="Кадр из Sonic 1 Definitive на Sega Genesis" data-alt-ru="Кадр из Sonic 1 Definitive на Sega Genesis" data-alt-en="A gameplay scene from Sonic 1 Definitive on Sega Genesis" fetchpriority="high">
+          <div class="visual-shade"></div>
+          <div class="visual-topline"><span class="status-dot"></span><span class="lang-ru">КАДР ИЗ ИГРЫ</span><span class="lang-en">IN-GAME SCREENSHOT</span><span class="visual-version">v2.0</span></div>
+          <figcaption><span class="caption-mark" aria-hidden="true">✦</span><span><strong>SONIC THE HEDGEHOG</strong><small>SEGA GENESIS · 16-BIT ERA</small></span></figcaption>
+        </div>
+        <div class="visual-orbit orbit-one" aria-hidden="true"></div>
+        <div class="visual-orbit orbit-two" aria-hidden="true"></div>
+      </figure>
+    </section>
+
+    <section class="quick-strip" aria-label="Ключевые особенности / Highlights">
+      <div class="container quick-strip-inner">
+        <p><span class="quick-icon" aria-hidden="true">01</span><span class="lang-ru">Патч BPS с проверкой контрольных сумм</span><span class="lang-en">BPS patch with checksum validation</span></p>
+        <p><span class="quick-icon" aria-hidden="true">02</span><span class="lang-ru">Сборка прямо в браузере</span><span class="lang-en">Apply the patch right in your browser</span></p>
+        <p><span class="quick-icon" aria-hidden="true">03</span><span class="lang-ru">Без загрузки вашего ROM на сервер</span><span class="lang-en">Your ROM is never uploaded</span></p>
+      </div>
+    </section>
+
+    <section class="section container" id="about" aria-labelledby="about-title">
+      <div class="section-heading">
+        <div><p class="section-kicker"><span class="section-kicker-line"></span><span class="lang-ru">О ПРОЕКТЕ</span><span class="lang-en">THE PROJECT</span></p><h2 id="about-title"><span class="lang-ru">Только нужное.<br><em>Никаких сюрпризов.</em></span><span class="lang-en">Just what you need.<br><em>No surprises.</em></span></h2></div>
+        <p class="section-intro lang-ru">Страница честно показывает, что именно скачивается, какой ROM нужен и что произойдёт при применении патча.</p>
+        <p class="section-intro lang-en">A clear overview of what you are downloading, which source ROM is required, and what happens when you apply the patch.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon icon-gold" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 4.5 7v5c0 4.7 3.2 7.7 7.5 9 4.3-1.3 7.5-4.3 7.5-9V7L12 3Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.6"/><path d="m8.5 12 2.3 2.3 4.8-5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/></svg></div>
+          <h3><span class="lang-ru">Патч, не ROM</span><span class="lang-en">A patch, not a ROM</span></h3>
+          <p class="lang-ru">На сайте размещён только небольшой файл BPS. Исходный игровой образ нужно подготовить самостоятельно.</p><p class="lang-en">Only the small BPS patch is hosted here. You provide your own original game image.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon icon-blue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19h16M6 16V8m4 8V5m4 11v-6m4 6V7" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/><circle cx="6" cy="6" r="1.5" fill="currentColor"/><circle cx="14" cy="8" r="1.5" fill="currentColor"/><circle cx="18" cy="5" r="1.5" fill="currentColor"/></svg></div>
+          <h3><span class="lang-ru">Понятная основа</span><span class="lang-en">A documented base</span></h3>
+          <p class="lang-ru">Сборка основана на <strong>s1disasm v26.05</strong>. Можно перейти к исходному проекту и его релизу.</p><p class="lang-en">Built on <strong>s1disasm v26.05</strong>. Visit the original project and its release page.</p>
+          <a class="text-link" href="https://github.com/sonicretro/s1disasm/releases/tag/v26.05" target="_blank" rel="noopener noreferrer"><span class="lang-ru">Открыть релиз <span aria-hidden="true">↗</span></span><span class="lang-en">View release <span aria-hidden="true">↗</span></span></a>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon icon-green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/></svg></div>
+          <h3><span class="lang-ru">Всё локально</span><span class="lang-en">All local</span></h3>
+          <p class="lang-ru">Проверка и применение выполняются в вашем браузере. ROM-файл не отправляется на сервер.</p><p class="lang-en">Validation and patching run in your browser. Your ROM file is not sent to a server.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-download" id="download" aria-labelledby="download-title">
+      <div class="container">
+        <div class="section-heading compact-heading">
+          <div><p class="section-kicker"><span class="section-kicker-line"></span><span class="lang-ru">ФАЙЛ ПАТЧА</span><span class="lang-en">THE PATCH</span></p><h2 id="download-title"><span class="lang-ru">Готов к <em>загрузке.</em></span><span class="lang-en">Ready to <em>download.</em></span></h2></div>
+          <p class="section-intro lang-ru">Версия 2.0 · формат BPS · патч для Sonic the Hedgehog на Sega Genesis, ревизия 01.</p>
+          <p class="section-intro lang-en">Version 2.0 · BPS format · for Sonic the Hedgehog on Sega Genesis, revision 01.</p>
+        </div>
+
+        <div class="download-layout">
+          <article class="download-card">
+            <div class="download-card-top"><span class="file-icon" aria-hidden="true"><svg viewBox="0 0 40 44" fill="none"><path d="M7 2h17l10 10v29H7V2Z" stroke="currentColor" stroke-width="2"/><path d="M24 2v10h10M12 23h17M12 29h17M12 35h11" stroke="currentColor" stroke-linecap="round" stroke-width="2"/></svg></span><span class="file-badge">BPS PATCH</span></div>
+            <p class="file-label"><span class="lang-ru">ФАЙЛ СКАЧИВАНИЯ</span><span class="lang-en">DOWNLOAD FILE</span></p>
+            <h3>s1patch.bps</h3>
+            <p class="file-meta"><span>183 KiB</span><span class="meta-separator">·</span><span>Sonic 1 Definitive v2.0</span></p>
+            <a class="button button-primary download-link" href="files/s1patch.bps" download="s1patch.bps">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg>
+              <span class="lang-ru">Скачать BPS-патч</span><span class="lang-en">Download BPS patch</span>
             </a>
+            <p class="download-note"><span class="lang-ru">ROM-образ в архив не входит.</span><span class="lang-en">The ROM image is not included.</span></p>
+          </article>
+
+          <article class="integrity-card" aria-labelledby="integrity-title">
+            <div class="integrity-card-heading"><div><p class="section-kicker"><span class="lang-ru">СОВМЕСТИМОСТЬ И ЦЕЛОСТНОСТЬ</span><span class="lang-en">COMPATIBILITY &amp; INTEGRITY</span></p><h3 id="integrity-title"><span class="lang-ru">Данные патча</span><span class="lang-en">Patch details</span></h3></div><span class="verified-seal" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span></div>
+            <dl class="integrity-list">
+              <div><dt><span class="lang-ru">Исходный ROM</span><span class="lang-en">Source ROM</span></dt><dd>512 KiB <span class="detail-note">· Revision 01</span></dd></div>
+              <div class="checksum-row"><dt>CRC32 <span class="lang-ru">источника</span><span class="lang-en">source</span></dt><dd><code>AFE05EEE</code><button type="button" class="copy-button" data-copy-value="AFE05EEE" aria-label="Скопировать CRC32 исходного ROM" title="Скопировать CRC32"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" stroke="currentColor" stroke-width="1.6"/></svg></button></dd></div>
+              <div><dt><span class="lang-ru">Размер результата</span><span class="lang-en">Output size</span></dt><dd>915,280 <span class="lang-ru">байт</span><span class="lang-en">bytes</span></dd></div>
+              <div class="checksum-row"><dt>CRC32 <span class="lang-ru">результата</span><span class="lang-en">output</span></dt><dd><code>CE9279C3</code><button type="button" class="copy-button" data-copy-value="CE9279C3" aria-label="Скопировать CRC32 результата" title="Скопировать CRC32"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" stroke="currentColor" stroke-width="1.6"/></svg></button></dd></div>
+            </dl>
+            <details class="hash-details"><summary><span class="lang-ru">Показать SHA-256 патча</span><span class="lang-en">Show patch SHA-256</span></summary><div class="hash-content"><code class="sha-value">b024cc1d453b5138e2dd18800107b6d1fb35f5de18e0f1ca0b3cc0b2afe94e72</code><button type="button" class="copy-button" data-copy-value="b024cc1d453b5138e2dd18800107b6d1fb35f5de18e0f1ca0b3cc0b2afe94e72" aria-label="Скопировать SHA-256 патча" title="Скопировать SHA-256"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" stroke="currentColor" stroke-width="1.6"/></svg></button></div></details>
+            <div class="patch-verify-row"><button class="text-button" id="verify-patch-button" type="button"><span class="lang-ru">Проверить файл патча</span><span class="lang-en">Verify patch file</span><span aria-hidden="true">↗</span></button><p id="patch-status" class="inline-status" role="status" aria-live="polite"><span class="lang-ru">Файл будет проверен в браузере.</span><span class="lang-en">The file will be checked in your browser.</span></p></div>
+          </article>
         </div>
-    </div>
+        <p class="section-footnote"><span class="footnote-mark" aria-hidden="true">i</span><span class="lang-ru">CRC32 и SHA-256 приведены для точной идентификации файлов. Исходный ROM на сайт не загружается и здесь не распространяется.</span><span class="lang-en">CRC32 and SHA-256 identify the exact files. The source ROM is neither uploaded to nor distributed by this site.</span></p>
+      </div>
+    </section>
 
-    <!-- КНОПКА СКАЧИВАНИЯ -->
-    <div class="download-section">
-        <div class="label lang-ru">📦 <strong>Скачать патч</strong></div>
-        <div class="label lang-en">📦 <strong>Download patch</strong></div>
-        
-        <a href="files/s1patch.bps" class="download-btn" download>
-            ⬇️ s1patch.bps
-            <span class="ext">BPS</span>
-        </a>
-        
-        <div class="rom-revision lang-ru">💿 Патч применять к ROM-образу <strong>Sonic the Hedgehog</strong> (Sega Genesis), <strong>ревизия&nbsp;01</strong></div>
-        <div class="rom-revision lang-en">💿 Apply patch to <strong>Sonic the Hedgehog</strong> (Sega Genesis) ROM image, <strong>revision&nbsp;01</strong></div>
-    </div>
+    <section class="section container patcher-section" id="patcher" aria-labelledby="patcher-title">
+      <div class="section-heading">
+        <div><p class="section-kicker"><span class="section-kicker-line"></span><span class="lang-ru">ПРОСТОЕ УСТАНОВЛЕНИЕ</span><span class="lang-en">EASY SETUP</span></p><h2 id="patcher-title"><span class="lang-ru">Примените патч<br><em>не выходя со страницы.</em></span><span class="lang-en">Apply the patch<br><em>without leaving the page.</em></span></h2></div>
+        <p class="section-intro lang-ru">Выберите собственный ROM. Браузер сверит размер и контрольную сумму, создаст патченный файл и предложит скачать его.</p>
+        <p class="section-intro lang-en">Choose your own ROM. Your browser checks its size and checksum, applies the patch, and offers the finished file for download.</p>
+      </div>
 
-    <!-- КАРТОЧКА TELEGRAM -->
-    <div class="telegram-card">
-        <div class="tg-header">
-            <svg class="tg-icon" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.53-1.39.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.24.38-.49 1.04-.74 4.07-1.77 6.79-2.93 8.15-3.5 3.89-1.61 4.7-1.89 5.23-1.9.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.14-.03.22z"/>
-            </svg>
-            <div class="tg-title lang-ru">TELEGRAM КАНАЛ</div>
-            <div class="tg-title lang-en">TELEGRAM CHANNEL</div>
+      <div class="patcher-panel">
+        <div class="patcher-main">
+          <div class="patcher-heading"><span class="patcher-step">01</span><div><h3><span class="lang-ru">Выберите исходный ROM</span><span class="lang-en">Choose your source ROM</span></h3><p><span class="lang-ru">Поддерживается файл образа без заголовка, размером 512 KiB.</span><span class="lang-en">Use a headerless ROM image, 512 KiB in size.</span></p></div></div>
+          <label class="drop-zone" id="rom-drop-zone" for="rom-file">
+            <input class="visually-hidden" type="file" id="rom-file" accept=".bin,.gen,.md,.rom,application/octet-stream">
+            <span class="drop-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M16 21V5m0 0-6 6m6-6 6 6M6 20v7h20v-7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg></span>
+            <span class="drop-copy"><strong><span class="lang-ru">Перетащите ROM сюда</span><span class="lang-en">Drop your ROM here</span></strong><span><span class="lang-ru">или нажмите, чтобы выбрать файл</span><span class="lang-en">or click to choose a file</span></span></span>
+            <span class="browse-button"><span class="lang-ru">Выбрать файл</span><span class="lang-en">Browse files</span></span>
+          </label>
+          <p class="selected-file" id="selected-file"><span class="lang-ru">Файл не выбран</span><span class="lang-en">No file selected</span></p>
+          <div class="patcher-actions"><button class="button button-primary apply-button" id="apply-patch-button" type="button" disabled><span class="lang-ru">Проверить и собрать ROM</span><span class="lang-en">Verify &amp; build ROM</span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg></button><a class="button button-secondary output-download" id="output-download" hidden download="Sonic-1-Definitive-v2.0.bin"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg><span class="lang-ru">Скачать готовый ROM</span><span class="lang-en">Download patched ROM</span></a></div>
+          <p class="patcher-status" id="rom-status" role="status" aria-live="polite" aria-atomic="true"><span class="lang-ru">Ваш файл останется на устройстве.</span><span class="lang-en">Your file stays on your device.</span></p>
         </div>
-        
-        <p class="lang-ru">Присоединяйтесь к моему Telegram-каналу</p>
-        <p class="lang-en">Join my Telegram channel</p>
-        
-        <a href="https://t.me/geometry_pro835" target="_blank" class="telegram-btn">
-            <svg style="width:20px;height:20px;fill:currentColor;" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.53-1.39.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.24.38-.49 1.04-.74 4.07-1.77 6.79-2.93 8.15-3.5 3.89-1.61 4.7-1.89 5.23-1.9.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.14-.03.22z"/>
-            </svg>
-            <span class="lang-ru">Присоединиться</span>
-            <span class="lang-en">Join Channel</span>
-        </a>
+        <aside class="patcher-aside">
+          <div class="aside-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="4" width="20" height="24" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M11 10h10m-10 5h10m-10 5h5" stroke="currentColor" stroke-linecap="round" stroke-width="1.7"/><path d="m19 23 2 2 4-5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/></svg></div>
+          <h3><span class="lang-ru">Проверки перед сборкой</span><span class="lang-en">Checks before patching</span></h3>
+          <ul class="check-list">
+            <li><span aria-hidden="true">✓</span><span class="lang-ru">Размер исходного файла — 512 KiB</span><span class="lang-en">Source file size — 512 KiB</span></li>
+            <li><span aria-hidden="true">✓</span><span class="lang-ru">CRC32 соответствует патчу</span><span class="lang-en">Source CRC32 matches the patch</span></li>
+            <li><span aria-hidden="true">✓</span><span class="lang-ru">CRC32 готового результата</span><span class="lang-en">Output CRC32 matches the patch</span></li>
+          </ul>
+          <p class="privacy-note"><span class="privacy-lock" aria-hidden="true">⌑</span><span class="lang-ru">Образ обрабатывается локально и не отправляется на сервер. Для применения браузер скачивает с сайта BPS-патч.</span><span class="lang-en">The ROM is processed locally and never sent to the server. The browser fetches the BPS patch to apply it.</span></p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-specs" id="details" aria-labelledby="details-title">
+      <div class="container specs-layout">
+        <div><p class="section-kicker"><span class="section-kicker-line"></span><span class="lang-ru">ТЕХНИЧЕСКИЕ ДАННЫЕ</span><span class="lang-en">TECHNICAL DETAILS</span></p><h2 id="details-title"><span class="lang-ru">Без догадок.<br><em>Только факты.</em></span><span class="lang-en">No guesswork.<br><em>Just the facts.</em></span></h2><p class="specs-intro lang-ru">Характеристики ниже прочитаны непосредственно из BPS-патча и страницы проекта.</p><p class="specs-intro lang-en">The values below come directly from the BPS patch and project page.</p></div>
+        <dl class="specs-grid">
+          <div class="spec-item"><dt><span class="lang-ru">Название</span><span class="lang-en">Title</span></dt><dd>Sonic 1 Definitive</dd></div>
+          <div class="spec-item"><dt><span class="lang-ru">Версия</span><span class="lang-en">Version</span></dt><dd>2.0</dd></div>
+          <div class="spec-item"><dt><span class="lang-ru">Платформа</span><span class="lang-en">Platform</span></dt><dd>Sega Genesis / Mega Drive</dd></div>
+          <div class="spec-item"><dt><span class="lang-ru">Исходный проект</span><span class="lang-en">Disassembly base</span></dt><dd><a href="https://github.com/sonicretro/s1disasm/releases/tag/v26.05" target="_blank" rel="noopener noreferrer">s1disasm v26.05 <span aria-hidden="true">↗</span></a></dd></div>
+          <div class="spec-item"><dt><span class="lang-ru">Формат распространения</span><span class="lang-en">Patch format</span></dt><dd>BPS · 183 KiB</dd></div>
+          <div class="spec-item"><dt><span class="lang-ru">Ожидаемый источник</span><span class="lang-en">Expected source</span></dt><dd>512 KiB · CRC32 AFE05EEE</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section container faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="section-heading compact-heading">
+        <div><p class="section-kicker"><span class="section-kicker-line"></span><span class="lang-ru">ЧАСТЫЕ ВОПРОСЫ</span><span class="lang-en">GOOD TO KNOW</span></p><h2 id="faq-title"><span class="lang-ru">Перед <em>стартом.</em></span><span class="lang-en">Before you <em>start.</em></span></h2></div>
+        <p class="section-intro lang-ru">Короткие ответы на вопросы о патче и установке.</p><p class="section-intro lang-en">Quick answers about the patch and how to use it.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item"><summary><span class="lang-ru">Какой ROM нужен?</span><span class="lang-en">Which ROM do I need?</span><span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-answer"><p class="lang-ru">Нужен исходный Sonic the Hedgehog для Sega Genesis, ревизия 01: файл размером 512 KiB с CRC32 <code>AFE05EEE</code>. Встроенная проверка сообщит, если образ не совпадает.</p><p class="lang-en">Use the original Sonic the Hedgehog for Sega Genesis, revision 01: a 512 KiB image with CRC32 <code>AFE05EEE</code>. The built-in checker will tell you if it does not match.</p></div></details>
+        <details class="faq-item"><summary><span class="lang-ru">На сайт загружается мой ROM?</span><span class="lang-en">Is my ROM uploaded to the site?</span><span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-answer"><p class="lang-ru">Нет. Если применяете патч в браузере, файл читается и обрабатывается на вашем устройстве. Для применения браузер скачивает опубликованный BPS-патч; сам ROM-файл остаётся на устройстве.</p><p class="lang-en">No. When patching in the browser, the file is read and processed on your device. The browser fetches the published BPS patch for processing; your ROM file stays on your device.</p></div></details>
+        <details class="faq-item"><summary><span class="lang-ru">Что такое BPS?</span><span class="lang-en">What is BPS?</span><span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-answer"><p class="lang-ru">BPS — формат патчей, который описывает изменения относительно исходного файла. Этот сайт также проверяет контрольные суммы исходного и готового файлов.</p><p class="lang-en">BPS is a patch format that describes changes from a source file. This page also checks the source and output checksums.</p></div></details>
+        <details class="faq-item"><summary><span class="lang-ru">Где взять патчер, если я не хочу использовать браузер?</span><span class="lang-en">Where can I get a patcher if I do not want to use the browser?</span><span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-answer"><p class="lang-ru">Скачайте <code>s1patch.bps</code> и примените его любой настольной программой, поддерживающей BPS. Укажите исходный ROM как файл-источник и сохраните результат в новый файл.</p><p class="lang-en">Download <code>s1patch.bps</code> and apply it with any desktop patching utility that supports BPS. Choose your ROM as the source and save the result as a new file.</p></div></details>
+        <details class="faq-item"><summary><span class="lang-ru">Почему проверка отклонила мой файл?</span><span class="lang-en">Why was my file rejected?</span><span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-answer"><p class="lang-ru">Патч требует точное совпадение размера и CRC32. Проверьте, что это не другая ревизия, не патченный образ и не файл с дополнительным заголовком. Исходный файл при этом не изменяется.</p><p class="lang-en">The patch requires an exact size and CRC32 match. Make sure the file is the correct revision, unmodified, and does not contain an extra header. Your source file is never changed.</p></div></details>
+        <details class="faq-item"><summary><span class="lang-ru">Это официальный продукт Sega?</span><span class="lang-en">Is this an official Sega release?</span><span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-answer"><p class="lang-ru">Нет. Это фанатский проект, не связанный с Sega и не одобренный ею. На сайте не размещаются игровые ROM-образы.</p><p class="lang-en">No. This is an unofficial fan project and is not affiliated with or endorsed by Sega. No game ROM images are hosted here.</p></div></details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-main">
+      <a class="brand footer-brand" href="#top" aria-label="Sonic 1 Definitive">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="5"/><path d="M30 17 20 28l-4-4-6 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><path d="M30 17h-8m8 0v8" stroke="currentColor" stroke-linecap="round" stroke-width="3"/></svg></span>
+        <span class="brand-text"><strong>SONIC 1</strong><span>DEFINITIVE</span></span>
+      </a>
+      <p class="footer-disclaimer lang-ru">Неофициальный фанатский проект. Не связан с Sega и не одобрен ею. На сайте распространяется только патч.</p>
+      <p class="footer-disclaimer lang-en">An unofficial fan project. Not affiliated with or endorsed by Sega. This site distributes the patch only.</p>
+      <div class="footer-links"><a href="https://t.me/geometry_pro835" target="_blank" rel="noopener noreferrer"><span class="lang-ru">Telegram</span><span class="lang-en">Telegram</span><span aria-hidden="true">↗</span></a><a href="#top"><span class="lang-ru">Наверх ↑</span><span class="lang-en">Back to top ↑</span></a></div>
     </div>
+    <div class="container footer-bottom"><span>SONIC 1 DEFINITIVE <span aria-hidden="true">·</span> v2.0</span><span><span class="lang-ru">Сделано фанатами, с заботой о классике.</span><span class="lang-en">Fan-made, with care for a classic.</span></span></div>
+  </footer>
 
-    <!-- ПОДВАЛ/ЗАМЕТКА -->
-    <div class="footer-note lang-ru">
-        ⚠️ Патч скачивается как есть. Убедись, что ROM соответствует указанной ревизии.
-    </div>
-    <div class="footer-note lang-en">
-        ⚠️ Patch is downloaded as is. Make sure your ROM matches the specified revision.
-    </div>
-</div>
-
-<script>
-    function setLanguage(lang) {
-        document.documentElement.setAttribute('lang', lang);
-        
-        // Update active button state
-        const btnRu = document.getElementById('lang-ru-btn');
-        const btnEn = document.getElementById('lang-en-btn');
-        if (lang === 'ru') {
-            btnRu.classList.add('active');
-            btnEn.classList.remove('active');
-            document.title = 'Sonic 1 Definitive — Скачать патч';
-        } else {
-            btnRu.classList.remove('active');
-            btnEn.classList.add('active');
-            document.title = 'Sonic 1 Definitive — Download Patch';
-        }
-        
-        // Save to local storage
-        localStorage.setItem('preferred-language', lang);
-    }
-
-    // Load preference on startup
-    document.addEventListener('DOMContentLoaded', () => {
-        const savedLang = localStorage.getItem('preferred-language');
-        const userLang = navigator.language || navigator.userLanguage;
-        
-        let defaultLang = 'ru'; // Default to Russian
-        if (savedLang) {
-            defaultLang = savedLang;
-        } else if (userLang && userLang.startsWith('en')) {
-            defaultLang = 'en';
-        }
-        
-        setLanguage(defaultLang);
-    });
-</script>
-
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>
